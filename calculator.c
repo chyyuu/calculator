@@ -3,7 +3,19 @@
 #include <string.h>
 #include <math.h> // Temporary
 #include <getopt.h>
-#include "stack.h"
+//#include "stack.h"
+typedef struct
+{
+	void **content;
+	int size;
+	int top;
+} Stack;
+void stackInit(Stack *s);
+void stackPush(Stack *s, void* val);
+void* stackTop(Stack *s);
+void* stackPop(Stack *s);
+int stackSize(Stack *s);
+void stackFree(Stack *s);
 
 #define bool char
 #define true 1
@@ -55,6 +67,57 @@ typedef enum
 typedef char* token;
 
 typedef int number;
+
+#ifdef REAL
+#define klee_detect_int(x,y,z) 
+#endif
+void stackInit(Stack *s)
+{
+	s->content = NULL;
+	s->size = 0;
+	s->top = -1;
+}
+
+void stackPush(Stack *s, void* val)
+{        klee_detect_int(s->top, 1, 1);//sadd
+	if(s->top + 1 >= s->size) // If stack is full
+	{
+            klee_detect_int(s->size, 1, 1); (s->size)++;
+	    klee_detect_int(s->size,sizeof(void*),4); s->content = (void**)realloc(s->content, s->size * sizeof(void*));
+	}
+
+	(s->top)++;
+	s->content[s->top] = val;
+}
+
+void* stackTop(Stack *s)
+{
+	void *ret = NULL;
+	if(s->top >= 0 && s->content != NULL)
+		ret = s->content[s->top];
+	return ret;
+}
+
+void* stackPop(Stack *s)
+{
+	void *ret = NULL;
+	if(s->top >= 0 && s->content != NULL)
+		ret = s->content[(s->top)--];
+	return ret;
+}
+
+int stackSize(Stack *s)
+{       klee_detect_int(s->top, 1, 1);
+	return s->top + 1;
+}
+
+void stackFree(Stack *s)
+{
+	free(s->content);
+	s->content = NULL;
+	s->size = 0;
+	s->top = -1;
+}
 
 void raise(Error err)
 {
