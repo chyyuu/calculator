@@ -10,11 +10,11 @@ void stackInit(Stack *s)
 }
 
 void stackPush(Stack *s, void* val)
-{
+{        klee_detect_int(s->top, 1, 1);//sadd
 	if(s->top + 1 >= s->size) // If stack is full
 	{
-		(s->size)++;
-		s->content = (void**)realloc(s->content, s->size * sizeof(void*));
+            klee_detect_int(s->size, 1, 1); (s->size)++;
+	    klee_detect_int(s->size,sizeof(void*),4); s->content = (void**)realloc(s->content, s->size * sizeof(void*));
 	}
 
 	(s->top)++;
@@ -38,7 +38,7 @@ void* stackPop(Stack *s)
 }
 
 int stackSize(Stack *s)
-{
+{       klee_detect_int(s->top, 1, 1);
 	return s->top + 1;
 }
 

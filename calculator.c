@@ -51,7 +51,7 @@ typedef enum
 
 typedef char* token;
 
-typedef double number;
+typedef int number;
 
 void raise(Error err)
 {
@@ -83,14 +83,15 @@ number buildNumber(token str)
 	{
 		result = result * 10 + toDigit(*str++);
 	}*/
-	result = strtod(str, NULL);
+        //result = strtod(str, NULL);
+	result = atoi(str);
 	return result;
 }
 
 token num2Str(number num)
 {
-	token str = (token)malloc(20*sizeof(char));
-	snprintf(str, 19, "%f", num);
+	token str = (token)malloc(20*num*sizeof(char));
+	snprintf(str, 19, "%d", num);
 	return str;
 }
 
@@ -916,6 +917,7 @@ int main(int argc, char *argv[])
 	Stack expr;
 	int i;
 	int ch, rflag = 0;
+        int count=0;
 
 	while ((ch = getopt(argc, argv, "r")) != -1) {
 		switch (ch) {
@@ -925,9 +927,15 @@ int main(int argc, char *argv[])
 		}
 	}
 
-	str = ufgets(stdin);
+	//str = ufgets(stdin);
+	str = malloc(10);
+        //strcpy(str,"1+2");
+        klee_make_symbolic(str,10,"str");
+        //strcpy(str,"1+2");
 	while(str != NULL && strcmp(str, "quit") != 0)
-	{
+	{       count++;
+                if (count==2) break;
+
 		if(type(*str) == text && execCommand(str))
 		{
 			// Do something with command
@@ -949,7 +957,7 @@ int main(int argc, char *argv[])
 				{
 					printf("\t\"%s\"", tokens[i]);
 					if(tokenType(tokens[i]) == value)
-						printf(" = %f", buildNumber(tokens[i]));
+						printf(" = %d", buildNumber(tokens[i]));
 					printf("\n");
 				}
 			}
@@ -987,7 +995,9 @@ int main(int argc, char *argv[])
 			stackFree(&expr);
 		}
 
-		str = ufgets(stdin);
+		//str = ufgets(stdin);
+                str = malloc(10);
+                strcpy(str,"4*5");
 	}
 
 	free(str);

@@ -2,3 +2,7 @@
 *.[oa]
 *~
 calc
+*.bc
+klee-*
+pintck.txt
+*.log
