@@ -10,6 +10,9 @@
 #define false 0
 
 #define PI 3.141592653589793
+#ifdef REAL
+#define klee_make_symbolic(x,y,z)   
+#endif
 
 typedef enum
 {
@@ -927,11 +930,14 @@ int main(int argc, char *argv[])
 		}
 	}
 
-	//str = ufgets(stdin);
-	str = malloc(10);
+#ifdef REAL
+	str = ufgets(stdin);
+#else
+        str = malloc(10);
         //strcpy(str,"1+2");
         klee_make_symbolic(str,10,"str");
         //strcpy(str,"1+2");
+#endif
 	while(str != NULL && strcmp(str, "quit") != 0)
 	{       count++;
                 if (count==2) break;
@@ -995,9 +1001,12 @@ int main(int argc, char *argv[])
 			stackFree(&expr);
 		}
 
-		//str = ufgets(stdin);
+#ifdef REAL
+		str = ufgets(stdin);
+#else
                 str = malloc(10);
                 strcpy(str,"4*5");
+#endif
 	}
 
 	free(str);

@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "stack.h"
-
+#ifdef REAL
+#define klee_detect_int(x,y,z) 
+#endif
 void stackInit(Stack *s)
 {
 	s->content = NULL;
