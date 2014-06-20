@@ -1,0 +1,3 @@
+crash example:
+1+(3-4)*3
+reason: numStr didn't consider the -num in malloc

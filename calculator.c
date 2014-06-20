@@ -437,10 +437,10 @@ Symbol tokenType(token tk)
 	return ret;
 }
 
-token tokenizeNumber(char *str)
-{
-	;
-}
+//token tokenizeNumber(char *str)
+//{
+//	;
+//}
 
 int tokenize(char *str, char *(**tokensRef))
 {
@@ -1002,8 +1002,7 @@ int main(int argc, char *argv[])
         //strcpy(str,"1+2");
 #endif
 	while(str != NULL && strcmp(str, "quit") != 0)
-	{       count++;
-                if (count==2) break;
+	{ 
 
 		if(type(*str) == text && execCommand(str))
 		{
@@ -1037,12 +1036,14 @@ int main(int argc, char *argv[])
 				printf("\tPostfix stack:\n");
 			postfix(tokens, numTokens, &expr);
 			//stackReverse(&expr);
-			/*printf("\tReversed postfix stack:\n\t");
+			/*
+			printf("\tReversed postfix stack:\n\t");
 			for(i = 0; i < stackSize(&expr); i++)
 			{
 				printf("%s ", (token)(expr.content[i]));
 			}
-			printf("\n");*/
+			printf("\n");
+			*/
 			if(stackSize(&expr) != 1)
 			{
 				printf("\tError evaluating expression\n");
@@ -1063,7 +1064,9 @@ int main(int argc, char *argv[])
 			numTokens = 0;
 			stackFree(&expr);
 		}
-
+		
+		count++;
+        if (count>=1) break;
 #ifdef REAL
 		str = ufgets(stdin);
 #else

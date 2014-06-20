@@ -1,7 +1,7 @@
 CC = gcc
 LLCC = llvm-gcc
-CFLAGS = -c -Wall
-LFLAGS = -Wall -DREAL -lm
+CFLAGS = -c -g -Wall
+LFLAGS = -Wall -DREAL -g -lm
 
 calc: calculator.c
 	$(CC) $(LFLAGS) -o calc calculator.c
@@ -14,5 +14,12 @@ klee:
 	llvm-ld --disable-opt calculator.o -o calc
 krun:
 	klee calc.bc
+kint:
+	/ubuntu/chyyuu/develop/xqx/kint/build/bin/kint-build gcc -DREAL -lm -o calc calculator.c 
+	/ubuntu/chyyuu/develop/xqx/kint/build/bin/pintck 
+scheck:
+	cppcheck calculator.c
+dcheck: 
+	valgrind --tool=memcheck ./calc
 clean:
 	rm -rf *.o calc *.ll *.out klee-* *~ *.bc pintck.txt *.log 
