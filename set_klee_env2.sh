@@ -1,0 +1,1 @@
+export PATH=/ubuntu/chyyuu/develop/xqx/alloc-klee/klee/Release+Asserts/bin:/ubuntu/chyyuu/develop/xyj/codes/llvm-2.9/Release+Asserts/bin:/ubuntu/chyyuu/develop/xyj/llvm-bins/llvm-gcc4.2-2.9-x86_64-linux/bin:$PATH
