@@ -1,3 +1,13 @@
-crash example:
+crash examples
+=================
 1+(3-4)*3
 reason: numStr didn't consider the -num in malloc
+
+
+build call graph
+=================
+use understand to produce the call graph of main, and produce .dot file
+but the dot file is not complete
+So we can use doxygen to produce the call graph
+
+make doc 

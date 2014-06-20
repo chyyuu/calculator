@@ -21,5 +21,7 @@ scheck:
 	cppcheck calculator.c
 dcheck: 
 	valgrind --tool=memcheck ./calc
+doc:
+	doxygen Doxyfile.cfg
 clean:
-	rm -rf *.o calc *.ll *.out klee-* *~ *.bc pintck.txt *.log 
+	rm -rf html *.o calc *.ll *.out klee-* *~ *.bc pintck.txt *.log 

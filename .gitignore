@@ -6,3 +6,5 @@ calc
 klee-*
 pintck.txt
 *.log
+html
+*.bak
