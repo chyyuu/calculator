@@ -8,3 +8,9 @@ pintck.txt
 *.log
 html
 *.bak
+*.gcda
+*.gcno
+*.zcov
+*.cov
+*.info
+*.gcov

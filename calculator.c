@@ -811,38 +811,6 @@ bool postfix(token *tokens, int numTokens, Stack *output)
 	return err;
 }
 
-char* substr(char *str, size_t begin, size_t len)
-{
-	if(str == NULL
-		|| strlen(str) == 0
-		|| strlen(str) < (begin+len))
-		return NULL;
-
-	char *result = (char*)malloc((len + 1) * sizeof(char));
-	int i;
-	for(i = 0; i < len; i++)
-		result[i] = str[begin+i];
-	result[i] = '\0';
-	return result;
-}
-
-bool strBeginsWith(char *haystack, char *needle)
-{
-	bool result;
-	if(strlen(haystack) < strlen(needle))
-	{
-		return false;
-	}
-	else
-	{
-		char *sub = substr(haystack, 0, strlen(needle));
-		result = (strcmp(sub, needle) == 0);
-		free(sub);
-		sub = NULL;
-	}
-	return result;
-}
-
 int strSplit(char *str, const char split, char *(**partsRef))
 {
 	char **parts = NULL;
@@ -998,8 +966,9 @@ int main(int argc, char *argv[])
 #else
         str = malloc(10);
         //strcpy(str,"1-2");
+        //klee_make_symbolic(str,10,"str");
         klee_make_symbolic(str,10,"str");
-        //strcpy(str,"1-2");
+        strcpy(str,"1+2");
 #endif
 	while(str != NULL && strcmp(str, "quit") != 0)
 	{ 
