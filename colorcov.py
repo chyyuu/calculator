@@ -1,3 +1,4 @@
+#! /usr/bin/python
 # colorcov.py
 # by chyyuu
 

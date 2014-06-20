@@ -9,5 +9,21 @@ build call graph
 use understand to produce the call graph of main, and produce .dot file
 but the dot file is not complete
 So we can use doxygen to produce the call graph
-
+'''
 make doc 
+
+'''
+
+show colorful file in less
+==================
+sudo yum install source-highlight
+
+then add below contents in ~/.bashrc
+'''
+PAGER='less -X -M' export LESSOPEN="| /usr/local/bin/src-hilite-lesspipe.sh  %s"
+export LESS=' -R '
+'''
+try colorcov in less!!!
+'''
+colorcov.py|less
+'''

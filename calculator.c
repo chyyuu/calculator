@@ -968,7 +968,7 @@ int main(int argc, char *argv[])
         //strcpy(str,"1-2");
         //klee_make_symbolic(str,10,"str");
         klee_make_symbolic(str,10,"str");
-        strcpy(str,"1+2");
+        //strcpy(str,"1+2");
 #endif
 	while(str != NULL && strcmp(str, "quit") != 0)
 	{ 
