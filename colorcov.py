@@ -25,3 +25,6 @@ for line in progfile:
  	else: 
 		print colored(str(v)+":", 'yellow'), colored(line, 'red')
 
+print len(lineset)
+print v
+print "The coverage is ", len(lineset)/float(v)
