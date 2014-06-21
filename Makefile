@@ -4,7 +4,7 @@ CFLAGS = -c -g -Wall
 LFLAGS = -Wall -DREAL -g -lm
 TIME = 60
 ROOTDIR="/ubuntu/chyyuu/develop/xqx/chy/calculator"
-all:realcalc kleecalc
+all:realcalc kleecalc.bc
 realcalc: calculator.c
 	$(CC) -DREAL -ftest-coverage -fprofile-arcs -Wall -g -lm -o realcalc calculator.c
 #	$(CC) $(LFLAGS) -ftest-coverage -fprofile-arcs -o realcalc calculator.c
