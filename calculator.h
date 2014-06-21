@@ -71,3 +71,18 @@ typedef int number;
 #ifdef REAL
 #define klee_detect_int(x,y,z) 
 #endif
+// only use in real calc
+char* ufgets(FILE* stream) {
+    unsigned int maxlen = 128, size = 128;
+    char* buffer = (char*)malloc(maxlen);
+    if(buffer != NULL) {
+        char ch = EOF;
+        int pos = 0;
+
+        while((ch = getchar()) != EOF && ch != '\n') {
+            buffer[pos++] = ch;
+            if(pos == size) {
+                size = pos + maxlen;
+                buffer = (char*)realloc(buffer, size); } }
+        buffer[pos] = '\0'; }
+    return buffer; }

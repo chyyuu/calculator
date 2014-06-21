@@ -2,7 +2,7 @@ CC = gcc
 LLCC = llvm-gcc
 CFLAGS = -c -g -Wall
 LFLAGS = -Wall -DREAL -g -lm
-TIME = 60
+TIME = 30
 ROOTDIR="/ubuntu/chyyuu/develop/xqx/chy/calculator"
 all:realcalc kleecalc.bc
 realcalc: calculator.c
@@ -19,10 +19,16 @@ kleecalc.bc:
 	llvm-ld --disable-opt calculator.o -o kleecalc
 kleerun: kleecalc.bc
 	klee kleecalc.bc
-kleecov: kleecalc.bc
+kc: kleecalc.bc
 	klee -write-cov kleecalc.bc
-kleecov1: kleecalc.bc
+kcdf: kleecalc.bc
 	klee -write-cov -search=dfs -max-time=${TIME} kleecalc.bc 2>&1|tee df.log
+	./colorcov.sh
+kcbf: kleecalc.bc
+	klee -write-cov -search=bfs -max-time=${TIME} kleecalc.bc 2>&1|tee bf.log
+	./colorcov.sh
+kcnc: kleecalc.bc
+	klee -write-cov -search=nurs:covnew -max-time=${TIME} kleecalc.bc 2>&1|tee nc.log
 	./colorcov.sh
 kleetest: kleecalc.bc
 	klee -search=dfs -max-time=${TIME} kleecalc.bc 2>&1|tee df.log

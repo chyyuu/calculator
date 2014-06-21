@@ -51,9 +51,9 @@ token num2Str(number num) {
     token str = (token)malloc(20*num*sizeof(char));
     snprintf(str, 19, "%d", num);
     return str; }
-inline number toRadians(number degrees) {
+number toRadians(number degrees) {
     return degrees * PI / 180.0; }
-inline number toDegrees(number radians) {
+number toDegrees(number radians) {
     return radians * 180.0 / PI; }
 token doFunc(token input, token function) {
     number num = buildNumber(input);
@@ -119,20 +119,6 @@ token doOp(token loperand, token op, token roperand) {
         ret = lside - rside; }
     break; }
     return num2Str(ret); }
-char* ufgets(FILE* stream) {
-    unsigned int maxlen = 128, size = 128;
-    char* buffer = (char*)malloc(maxlen);
-    if(buffer != NULL) {
-        char ch = EOF;
-        int pos = 0;
-
-        while((ch = getchar()) != EOF && ch != '\n') {
-            buffer[pos++] = ch;
-            if(pos == size) {
-                size = pos + maxlen;
-                buffer = (char*)realloc(buffer, size); } }
-        buffer[pos] = '\0'; }
-    return buffer; }
 Symbol type(char ch) {
     Symbol result;
     switch(ch) {
@@ -553,11 +539,6 @@ int main(int argc, char *argv[]) {
     int i;
     int ch, rflag = 0;
     int count=0;
-    while ((ch = getopt(argc, argv, "r")) != -1) {
-        switch (ch) {
-        case 'r':
-            rflag = 1;
-            break; } }
 #ifdef REAL
     str = ufgets(stdin);
 #else
