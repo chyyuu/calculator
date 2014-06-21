@@ -27,3 +27,9 @@ try colorcov in less!!!
 '''
 colorcov.py|less
 '''
+
+detect int bugs
+=====================
+in klee/lib/Core/SpecialFunctionHandler.cpp
+SpecialFunctionalHandler::detectInt 函数中
+如果查出bug,这应该有报错信息
